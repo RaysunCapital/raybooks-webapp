@@ -1,27 +1,27 @@
 import { Card, CardHeader, List } from '@mui/material';
 import { useTranslate } from 'react-admin';
 
-import { Order } from '../types';
-import { PendingOrder } from './PendingOrder';
+import { Invoice } from '../types';
+import { PendingInvoice } from './PendingInvoice';
 
 interface Props {
-    orders?: Order[];
+    invoices?: Invoice[];
 }
 
-const PendingOrders = (props: Props) => {
-    const { orders = [] } = props;
+const PendingInvoices = (props: Props) => {
+    const { invoices = [] } = props;
     const translate = useTranslate();
 
     return (
         <Card sx={{ flex: 1 }}>
             <CardHeader title={translate('books.dashboard.pending_invoices')} />
             <List dense={true}>
-                {orders.map(record => (
-                    <PendingOrder key={record.id} order={record} />
+                {invoices.map(record => (
+                    <PendingInvoice key={record.id} invoice={record} />
                 ))}
             </List>
         </Card>
     );
 };
 
-export default PendingOrders;
+export default PendingInvoices;

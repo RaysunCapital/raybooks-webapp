@@ -9,22 +9,22 @@ import {
 import { Link } from 'react-router-dom';
 import { useTranslate, useReference } from 'react-admin';
 
-import { Customer, Order } from '../types';
+import { Customer, Invoice } from '../types';
 
 interface Props {
-    order: Order;
+    invoice: Invoice;
 }
 
-export const PendingOrder = (props: Props) => {
-    const { order } = props;
+export const PendingInvoice = (props: Props) => {
+    const { invoice } = props;
     const translate = useTranslate();
     const { referenceRecord: customer, isLoading } = useReference<Customer>({
         reference: 'customers',
-        id: order.customer_id,
+        id: invoice.customer_id,
     });
 
     return (
-        <ListItem button component={Link} to={`/commands/${order.id}`}>
+        <ListItem button component={Link} to={`/invoices/${invoice.id}`}>
             <ListItemAvatar>
                 {isLoading ? (
                     <Avatar />
@@ -37,10 +37,10 @@ export const PendingOrder = (props: Props) => {
                 )}
             </ListItemAvatar>
             <ListItemText
-                primary={new Date(order.date).toLocaleString('en-GB')}
+                primary={new Date(invoice.date).toLocaleString('en-GB')}
                 secondary={translate('books.dashboard.order.items', {
-                    smart_count: order.basket.length,
-                    nb_items: order.basket.length,
+                    smart_count: invoice.basket.length,
+                    nb_items: invoice.basket.length,
                     customer_name: customer
                         ? `${customer.first_name} ${customer.last_name}`
                         : '',
@@ -54,7 +54,7 @@ export const PendingOrder = (props: Props) => {
                         color: 'text.primary',
                     }}
                 >
-                    {order.total}$
+                    {invoice.total}$
                 </Box>
             </ListItemSecondaryAction>
         </ListItem>

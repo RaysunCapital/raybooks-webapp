@@ -1,4 +1,4 @@
-import ProductIcon from '@mui/icons-material/AttachMoney';
+import ProductIcon from '@mui/icons-material/ShoppingBasket';
 import ProductList from './ProductList';
 import ProductCreate from './ProductCreate';
 import ProductShow from './ProductShow';

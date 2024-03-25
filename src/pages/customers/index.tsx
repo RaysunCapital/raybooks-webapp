@@ -1,4 +1,4 @@
-import CustomerIcon from '@mui/icons-material/AttachMoney';
+import CustomerIcon from '@mui/icons-material/AccountBox';
 import CustomerList from './CustomerList';
 import CustomerCreate from './CustomerCreate';
 

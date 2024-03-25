@@ -1,4 +1,4 @@
-import InvoiceIcon from '@mui/icons-material/AttachMoney';
+import InvoiceIcon from '@mui/icons-material/ReceiptLong';
 import InvoiceList from './InvoiceList';
 import InvoiceCreate from './InvoiceCreate';
 

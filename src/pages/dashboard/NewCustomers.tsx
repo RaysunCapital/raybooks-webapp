@@ -25,12 +25,9 @@ const NewCustomers = () => {
     return (
         <ListBase
             resource="customers"
-            filter={{
-                has_ordered: true,
-                first_seen_gte: aMonthAgo.toISOString(),
-            }}
-            sort={{ field: 'first_seen', order: 'DESC' }}
-            perPage={100}
+            
+            sort={{ field: 'last_name', order: 'DESC' }}
+            perPage={20}
             disableSyncWithLocation
         >
             <CardWithIcon

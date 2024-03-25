@@ -1,6 +1,6 @@
 import { Box, Card, CardActions, Button, Typography } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import CodeIcon from '@mui/icons-material/Code';
+import HomeIcon from '@mui/icons-material/ReceiptLong';
+import CodeIcon from '@mui/icons-material/AccountBox';
 import { useTranslate } from 'react-admin';
 
 import publishArticleImage from './welcome_illustration.svg';
@@ -21,11 +21,11 @@ const Welcome = () => {
             <Box display="flex">
                 <Box flex="1">
                     <Typography variant="h5" component="h2" gutterBottom>
-                        {translate('pos.dashboard.welcome.title')}
+                        {translate('books.dashboard.welcome.title')}
                     </Typography>
                     <Box maxWidth="40em">
                         <Typography variant="body1" component="p" gutterBottom>
-                            {translate('pos.dashboard.welcome.subtitle')}
+                            {translate('books.dashboard.welcome.subtitle')}
                         </Typography>
                     </Box>
                     <CardActions
@@ -41,17 +41,17 @@ const Welcome = () => {
                     >
                         <Button
                             variant="contained"
-                            href="https://marmelab.com/react-admin"
+                            href="/invoices/create"
                             startIcon={<HomeIcon />}
                         >
-                            {translate('pos.dashboard.welcome.ra_button')}
+                            {translate('books.dashboard.welcome.ra_button')}
                         </Button>
                         <Button
                             variant="contained"
-                            href="https://github.com/marmelab/react-admin/tree/master/examples/demo"
+                            href="/customers/create"
                             startIcon={<CodeIcon />}
                         >
-                            {translate('pos.dashboard.welcome.demo_button')}
+                            {translate('books.dashboard.welcome.demo_button')}
                         </Button>
                     </CardActions>
                 </Box>
