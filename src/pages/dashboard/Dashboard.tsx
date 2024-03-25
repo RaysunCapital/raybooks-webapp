@@ -46,13 +46,15 @@ const Dashboard = () => {
     const aMonthAgo = useMemo(() => subDays(startOfDay(new Date()), 30), []);
 
     const { data: invoices } = useGetList<Invoice>('invoices', {
-        filter: { date_gte: aMonthAgo.toISOString() },
+        filter: {  },
         sort: { field: 'date', order: 'DESC' },
         pagination: { page: 1, perPage: 50 },
     });
 
+    console.log(invoices)
     const aggregation = useMemo<State>(() => {
         if (!invoices) return {};
+        console.log('invoices')
         const aggregations = invoices
             .filter(invoice => invoice.status !== 'cancelled')
             .reduce(
@@ -61,7 +63,7 @@ const Dashboard = () => {
                         stats.revenue += invoice.total;
                         stats.nbNewInvoices++;
                     }
-                    if (invoice.status === 'ordered') {
+                    if (invoice.status === 'unpaid') {
                         stats.pendingInvoices.push(invoice);
                     }
                     return stats;
@@ -108,7 +110,7 @@ const Dashboard = () => {
                 <NbNewInvoices value={nbNewInvoices} />
             </div>
             <div style={styles.singleCol}>
-                <InvoiceChart invoices={recentInvoices} />
+                <InvoiceChart orders={recentInvoices} />
             </div>
             <div style={styles.singleCol}>
                 <PendingInvoices invoices={pendingInvoices} />
@@ -125,7 +127,7 @@ const Dashboard = () => {
                         <NbNewInvoices value={nbNewInvoices} />
                     </div>
                     <div style={styles.singleCol}>
-                        <InvoiceChart invoices={recentInvoices} />
+                        <InvoiceChart orders={recentInvoices} />
                     </div>
                     <div style={styles.singleCol}>
                         <PendingInvoices invoices={pendingInvoices} />

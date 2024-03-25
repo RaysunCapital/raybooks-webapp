@@ -39,8 +39,8 @@ export const PendingInvoice = (props: Props) => {
             <ListItemText
                 primary={new Date(invoice.date).toLocaleString('en-GB')}
                 secondary={translate('books.dashboard.order.items', {
-                    smart_count: invoice.basket.length,
-                    nb_items: invoice.basket.length,
+                    smart_count: invoice.products.length,
+                    nb_items: invoice.products.length,
                     customer_name: customer
                         ? `${customer.first_name} ${customer.last_name}`
                         : '',

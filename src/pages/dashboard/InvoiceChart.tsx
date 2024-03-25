@@ -47,7 +47,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
 
     return (
         <Card>
-            <CardHeader title={translate('pos.dashboard.month_history')} />
+            <CardHeader title={translate('books.dashboard.month_history')} />
             <CardContent>
                 <div style={{ width: '100%', height: 300 }}>
                     <ResponsiveContainer>
@@ -83,7 +83,7 @@ const OrderChart = (props: { orders?: Order[] }) => {
                                 ]}
                                 tickFormatter={dateFormatter}
                             />
-                            <YAxis dataKey="total" name="Revenue" unit="€" />
+                            <YAxis dataKey="total" name="Revenue" unit="$" />
                             <CartesianGrid strokeDasharray="3 3" />
                             <Tooltip
                                 cursor={{ strokeDasharray: '3 3' }}
