@@ -9,11 +9,10 @@ import {
     SimpleFormIterator,
     NumberInput,
     SelectInput,
-    BooleanInput,
 } from 'react-admin';
-import { Box, Typography, Grid } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import './styles.css';
-import { useState } from 'react';
+import LineItem from './LineItem';
 
 const SectionTitle = ({ label }: { label: string }) => {
     const translate = useTranslate();
@@ -26,22 +25,12 @@ const SectionTitle = ({ label }: { label: string }) => {
 };
 
 const ProductPriceInput = () => {
-    const [productPrice, setProductPrice] = useState(null);
-
-    const handleProductChange = async (event: any, product: any) => {
-        setProductPrice(product.price);
-    };
 
     return (
         <>
             <ArrayInput label="Items" source="products">
                 <SimpleFormIterator sx={{ display: 'contents' }}>
-                    <ReferenceInput source="product_id" reference="products">
-                        <AutocompleteInput optionText="name" sx={{ marginRight: '30px' }} onChange={handleProductChange} />
-                    </ReferenceInput>
-                    <NumberInput source="quantity" sx={{ marginRight: '30px' }} />
-                    <NumberInput source="rate" sx={{ marginRight: '30px' }} label="Price" defaultValue={productPrice} disabled />
-                    <NumberInput source="total" label="Total" disabled={true} /> {/* Disabled as it's calculated */}
+                    <LineItem />
                 </SimpleFormIterator>
             </ArrayInput>
         </>
