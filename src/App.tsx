@@ -14,6 +14,7 @@ import estimates from './pages/estimates';
 import expenses from './pages/expenses';
 import products from './pages/products';
 import vendors from './pages/vendors';
+import CompanyShow from './pages/company/CompanyShow';
 
 const i18nProvider = polyglotI18nProvider(
     locale => {
@@ -65,6 +66,10 @@ export const App = () => {
                     <Route
                         path="/reports"
                         element={<div>hi</div>}
+                    />
+                    <Route
+                        path="/company"
+                        element={<CompanyShow />}
                     />
                 </CustomRoutes>
                 <Resource name="invoices" {...invoices} />

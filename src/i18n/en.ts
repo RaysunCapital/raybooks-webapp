@@ -35,6 +35,9 @@ const customEnglishMessages: TranslationMessages = {
             sales: 'Sales',
             purchases: 'Purchases'
         },
+        profile: {
+            title: 'Company',
+        },
         events: {
             review: {
                 title: 'Posted review on "%{product}"',
@@ -73,7 +76,7 @@ const customEnglishMessages: TranslationMessages = {
                 group: 'Segment',
             },
             fieldGroups: {
-                identity: 'Identity',
+                identity: 'Customer',
                 address: 'Address',
                 stats: 'Stats',
                 history: 'History',
@@ -116,7 +119,7 @@ const customEnglishMessages: TranslationMessages = {
                 group: 'Segment',
             },
             fieldGroups: {
-                identity: 'Identity',
+                identity: 'Vendor',
                 address: 'Address',
                 stats: 'Stats',
                 history: 'History',
@@ -151,6 +154,9 @@ const customEnglishMessages: TranslationMessages = {
         },
         expenses: {
             name: 'Expense |||| Expenses',
+            action: {
+                create: 'New Expense',
+            },
             fields: {
                 date: 'Expense date',
                 supplier_id: 'Supplier',
@@ -163,6 +169,9 @@ const customEnglishMessages: TranslationMessages = {
         },
         estimates: {
             name: 'Estimate |||| Estimates',
+            action: {
+                create: 'New Estimate',
+            },
             fields: {
                 date: 'Estimate date',
                 customer_id: 'Customer',

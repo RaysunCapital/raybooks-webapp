@@ -6,7 +6,7 @@ export const authProvider = supabaseAuthProvider(supabaseClient, {
         const { data, error } = await supabaseClient
             .from('profiles')
             .select('id, first_name, last_name')
-            .match({ email: user.email })
+            .match({ id: user.id })
             .single();
 
         if (!data || error) {

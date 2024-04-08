@@ -10,6 +10,7 @@ import {
 import invoices from '../pages/invoices/index';
 import products from '../pages/products/index';
 import reports from '../pages/reports/index';
+import company from '../pages/company';
 import expenses from '../pages/expenses';
 import customers from '../pages/customers';
 import estimates from '../pages/estimates';
@@ -122,6 +123,15 @@ const Menu = ({ dense = false }: MenuProps) => {
                     smart_count: 2,
                 })}
                 leftIcon={<reports.icon />}
+                dense={dense}
+            />
+            <MenuItemLink
+                to="/company"
+                state={{ _scrollToTop: true }}
+                primaryText={translate(`books.profile.title`, {
+                    smart_count: 2,
+                })}
+                leftIcon={<company.icon />}
                 dense={dense}
             />
         </Box>
