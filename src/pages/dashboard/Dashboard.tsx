@@ -1,28 +1,33 @@
 import { useMemo, CSSProperties } from 'react';
 import { useGetList } from 'react-admin';
 import { useMediaQuery, Theme } from '@mui/material';
-import { subDays, startOfDay } from 'date-fns';
+// import { subDays, startOfDay } from 'date-fns';
 
 import Welcome from './Welcome';
 import MonthlyRevenue from './MonthlyRevenue';
-import NbNewInvoices from './NbNewInvoices';
+import MonthlyExpenses from './MonthlyExpenses';
 import PendingInvoices from './PendingInvoices';
 import NewCustomers from './NewCustomers';
 import InvoiceChart from './InvoiceChart';
 
 import { Invoice } from '../types';
+import { Expense } from '../types';
 
 interface InvoiceStats {
     revenue: number;
-    nbNewInvoices: number;
     pendingInvoices: Invoice[];
 }
 
+interface ExpenseStats {
+    monthlyExpenses: number;
+}
+
 interface State {
-    nbNewInvoices?: number;
     pendingInvoices?: Invoice[];
     recentInvoices?: Invoice[];
     revenue?: string;
+    monthlyExpenses?: string;
+    expenses?: string;
 }
 
 const styles = {
@@ -43,7 +48,7 @@ const Dashboard = () => {
     const isSmall = useMediaQuery((theme: Theme) =>
         theme.breakpoints.down('lg')
     );
-    const aMonthAgo = useMemo(() => subDays(startOfDay(new Date()), 30), []);
+    // const aMonthAgo = useMemo(() => subDays(startOfDay(new Date()), 30), []);
 
     const { data: invoices } = useGetList<Invoice>('invoices', {
         filter: {  },
@@ -51,17 +56,21 @@ const Dashboard = () => {
         pagination: { page: 1, perPage: 50 },
     });
 
-    console.log(invoices)
-    const aggregation = useMemo<State>(() => {
+    const { data: expenses } = useGetList<Expense>('expenses', {
+        filter: {  },
+        sort: { field: 'date', order: 'DESC' },
+        pagination: { page: 1, perPage: 50 },
+    });
+
+    const invoiceAggregation = useMemo<State>(() => {
         if (!invoices) return {};
-        console.log('invoices')
+
         const aggregations = invoices
             .filter(invoice => invoice.status !== 'cancelled')
             .reduce(
                 (stats: InvoiceStats, invoice) => {
                     if (invoice.status !== 'cancelled') {
-                        stats.revenue += invoice.total;
-                        stats.nbNewInvoices++;
+                        stats.revenue += invoice.invoice_total;
                     }
                     if (invoice.status === 'unpaid') {
                         stats.pendingInvoices.push(invoice);
@@ -70,7 +79,6 @@ const Dashboard = () => {
                 },
                 {
                     revenue: 0,
-                    nbNewInvoices: 0,
                     pendingInvoices: [],
                 }
             );
@@ -82,19 +90,48 @@ const Dashboard = () => {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0,
             }),
-            nbNewInvoices: aggregations.nbNewInvoices,
+            // nbNewInvoices: aggregations.nbNewInvoices,
             pendingInvoices: aggregations.pendingInvoices,
         };
     }, [invoices]);
 
-    const { nbNewInvoices, pendingInvoices, revenue, recentInvoices } = aggregation;
+    const expenseAggregation = useMemo<State>(() => {
+        if (!expenses) return {};
+        
+        const aggregations = expenses
+            .filter(expense => expense.status !== 'cancelled')
+            .reduce(
+                (stats: ExpenseStats, expense) => {
+                    if (expense.status !== 'cancelled') {
+                        stats.monthlyExpenses += expense.expense_total;
+                    }
+                    return stats;
+                },
+                {
+                    monthlyExpenses: 0
+                }
+            );
+        return {
+            monthlyExpenses: aggregations.monthlyExpenses.toLocaleString(undefined, {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            })
+        };
+    }, [expenses]);
+
+    const { pendingInvoices, revenue, recentInvoices } = invoiceAggregation;
+
+    const { monthlyExpenses } = expenseAggregation;
+   
     return isXSmall ? (
         <div>
             <div style={styles.flexColumn as CSSProperties}>
                 <Welcome />
                 <MonthlyRevenue value={revenue} />
                 <VerticalSpacer />
-                <NbNewInvoices value={nbNewInvoices} />
+                <MonthlyExpenses value={monthlyExpenses} />
                 <VerticalSpacer />
                 <PendingInvoices invoices={pendingInvoices} />
             </div>
@@ -107,7 +144,7 @@ const Dashboard = () => {
             <div style={styles.flex}>
                 <MonthlyRevenue value={revenue} />
                 <Spacer />
-                <NbNewInvoices value={nbNewInvoices} />
+                <MonthlyExpenses value={monthlyExpenses} />
             </div>
             <div style={styles.singleCol}>
                 <InvoiceChart orders={recentInvoices} />
@@ -124,7 +161,7 @@ const Dashboard = () => {
                     <div style={styles.flex}>
                         <MonthlyRevenue value={revenue} />
                         <Spacer />
-                        <NbNewInvoices value={nbNewInvoices} />
+                        <MonthlyExpenses value={monthlyExpenses} />
                     </div>
                     <div style={styles.singleCol}>
                         <InvoiceChart orders={recentInvoices} />

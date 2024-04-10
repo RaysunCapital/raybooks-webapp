@@ -98,7 +98,7 @@ const ExpenseCreate = () => (
                 <DateInput source="date" sx={{ marginRight: '30px' }} />
 
                 <ReferenceInput label="Vendor" source="vendor_id" reference="vendors">
-                    <AutocompleteInput label="Vendor" optionText="last_name" />
+                    <AutocompleteInput label="Vendor" optionText="company" />
                 </ReferenceInput>
 
             </div>

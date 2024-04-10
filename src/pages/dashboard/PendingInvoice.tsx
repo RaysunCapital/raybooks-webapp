@@ -54,7 +54,7 @@ export const PendingInvoice = (props: Props) => {
                         color: 'text.primary',
                     }}
                 >
-                    {invoice.total}$
+                    {invoice.invoice_total}$
                 </Box>
             </ListItemSecondaryAction>
         </ListItem>

@@ -20,27 +20,27 @@ const aMonthAgo = subDays(new Date(), 30);
 const dateFormatter = (date: number): string =>
     new Date(date).toLocaleDateString();
 
-const aggregateOrdersByDay = (orders: Invoice[]): { [key: string]: number } =>
-    orders
+const aggregateInvoicesByDay = (invoices: Invoice[]): { [key: string]: number } =>
+    invoices
         .filter((invoice: Invoice) => invoice.status !== 'cancelled')
         .reduce((acc, curr) => {
             const day = format(new Date(curr.date), 'yyyy-MM-dd');
             if (!acc[day]) {
                 acc[day] = 0;
             }
-            acc[day] += curr.total;
+            acc[day] += curr.invoice_total;
             return acc;
         }, {} as { [key: string]: number });
 
-const getRevenuePerDay = (orders: Invoice[]): TotalByDay[] => {
-    const daysWithRevenue = aggregateOrdersByDay(orders);
+const getRevenuePerDay = (invoices: Invoice[]): TotalByDay[] => {
+    const daysWithRevenue = aggregateInvoicesByDay(invoices);
     return lastMonthDays.map(date => ({
         date: date.getTime(),
         total: daysWithRevenue[format(new Date(date), 'yyyy-MM-dd')] || 0,
     }));
 };
 
-const OrderChart = (props: { orders?: Invoice[] }) => {
+const InvoiceChart = (props: { orders?: Invoice[] }) => {
     const { orders } = props;
     const translate = useTranslate();
     if (!orders) return null;
@@ -117,4 +117,4 @@ interface TotalByDay {
     total: number;
 }
 
-export default OrderChart;
+export default InvoiceChart;

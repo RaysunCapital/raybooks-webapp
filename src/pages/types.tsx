@@ -25,6 +25,8 @@ export interface Customer extends RaRecord {
 
 export type InvoiceStatus = 'unpaid' | 'paid' | 'cancelled';
 
+export type ExpenseStatus = 'unpaid' | 'paid' | 'cancelled';
+
 
 export type BasketItem = {
     product_id: Identifier;
@@ -43,5 +45,18 @@ export interface Invoice extends RaRecord {
     tax_rate: number;
     taxes: number;
     customer_id: Identifier;
+    reference: string;
+}
+
+export interface Expense extends RaRecord {
+    date: Date;
+    products: BasketItem[];
+    status: ExpenseStatus;
+    total: number;
+    total_ex_taxes: number;
+    delivery_fees: number;
+    tax_rate: number;
+    taxes: number;
+    vendor_id: Identifier;
     reference: string;
 }

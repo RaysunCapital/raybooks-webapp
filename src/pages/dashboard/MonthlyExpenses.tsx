@@ -4,10 +4,10 @@ import { useTranslate } from 'react-admin';
 import CardWithIcon from './CardWithIcon';
 
 interface Props {
-    value?: number;
+    value?: string;
 }
 
-const NbNewOrders = (props: Props) => {
+const MonthlyExpenses = (props: Props) => {
     const { value } = props;
     const translate = useTranslate();
     return (
@@ -15,9 +15,9 @@ const NbNewOrders = (props: Props) => {
             to="/expenses"
             icon={ShoppingCartIcon}
             title={translate('books.dashboard.expenses')}
-            subtitle={'2000'}
+            subtitle={value}
         />
     );
 };
 
-export default NbNewOrders;
+export default MonthlyExpenses;
