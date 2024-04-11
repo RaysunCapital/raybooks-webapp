@@ -9,7 +9,7 @@ import { defaultTheme } from 'react-admin';
 export const softDarkTheme = {
     palette: {
         primary: {
-            main: '#90caf9',
+            main: '#f9dc72',
         },
         secondary: {
             main: '#FBBA72',
@@ -26,7 +26,7 @@ export const softDarkTheme = {
                 root: {
                     borderLeft: '3px solid #000',
                     '&.RaMenuItemLink-active': {
-                        borderLeft: '3px solid #90caf9',
+                        borderLeft: '3px solid #f7c871',
                     },
                 },
             },
@@ -48,12 +48,12 @@ export const softDarkTheme = {
 export const softLightTheme = {
     palette: {
         primary: {
-            main: '#4f3cc9',
+            main: '#EBAB00',
         },
         secondary: {
-            light: '#5f5fc4',
-            main: '#283593',
-            dark: '#001064',
+            light: '#ffd260',
+            main: '#EBAB00',
+            dark: '#fcbe23',
             contrastText: '#fff',
         },
         background: {
@@ -74,7 +74,7 @@ export const softLightTheme = {
                 root: {
                     borderLeft: '3px solid #fff',
                     '&.RaMenuItemLink-active': {
-                        borderLeft: '3px solid #4f3cc9',
+                        borderLeft: '3px solid #EBAB00',
                     },
                 },
             },

@@ -65,7 +65,7 @@ export const App = () => {
                 <CustomRoutes>
                     <Route
                         path="/reports"
-                        element={<div>hi</div>}
+                        element={<div>Coming Soon</div>}
                     />
                     <Route
                         path="/company"

@@ -62,12 +62,12 @@ const InvoiceChart = (props: { orders?: Invoice[] }) => {
                                 >
                                     <stop
                                         offset="5%"
-                                        stopColor="#8884d8"
+                                        stopColor="#fdcd52"
                                         stopOpacity={0.8}
                                     />
                                     <stop
                                         offset="95%"
-                                        stopColor="#8884d8"
+                                        stopColor="#fdcd52"
                                         stopOpacity={0}
                                     />
                                 </linearGradient>
@@ -100,7 +100,7 @@ const InvoiceChart = (props: { orders?: Invoice[] }) => {
                             <Area
                                 type="monotone"
                                 dataKey="total"
-                                stroke="#8884d8"
+                                stroke="#fdcd52"
                                 strokeWidth={2}
                                 fill="url(#colorUv)"
                             />

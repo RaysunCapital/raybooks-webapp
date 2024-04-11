@@ -31,7 +31,7 @@ export const ThemeSwapper = () => {
 
     return (
         <>
-            <Tooltip title={toggleThemeTitle} enterDelay={300}>
+            {/* <Tooltip title={toggleThemeTitle} enterDelay={300}>
                 <IconButton
                     onClick={handleClick}
                     color="inherit"
@@ -39,7 +39,7 @@ export const ThemeSwapper = () => {
                 >
                     <ColorLensIcon />
                 </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             {currentTheme?.dark ? <ToggleThemeButton /> : null}
             <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
                 {themes.map((theme, index: number) => (
