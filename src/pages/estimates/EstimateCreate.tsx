@@ -140,7 +140,7 @@ const EstimateCreate = () => (
                 <Grid item xs={12} sm={12} md={6}>
                     <div>Valid for</div>
                     <NumberInput
-                        source=""
+                        source="validity"
                         min={0}
                         InputProps={{
                             endAdornment: (

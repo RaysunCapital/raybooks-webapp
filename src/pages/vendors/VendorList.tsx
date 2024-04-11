@@ -1,53 +1,57 @@
 import {
-    List,
-    DatagridConfigurable,
-    TextField,
-    DateField,
     CreateButton,
-    DateInput,
-    TopToolbar,
+    DatagridConfigurable,
     ExportButton,
+    List,
     SelectColumnsButton,
-    ReferenceInput,
-    FilterButton,
+    TextField,
+    TopToolbar,
 } from 'react-admin';
-import VendorsShow from './VendorShow';
+import { useMediaQuery, Theme } from '@mui/material';
+import MobileGrid from './MobileGrid';
 
-const listFilters = [
-    <DateInput source="date_gte" alwaysOn key={null}/>,
-    <DateInput source="date_lte" alwaysOn key={null} />,
-    <ReferenceInput source="customer_id" reference="customers" key={null} />,
-];
-
-const ListActions = () => (
+const VendorListActions = () => (
     <TopToolbar>
         <CreateButton />
-        <FilterButton />
         <SelectColumnsButton />
         <ExportButton />
     </TopToolbar>
 );
 
-const VendorsList = () => (
-    <List
-        filters={listFilters}
-        perPage={25}
-        sort={{ field: 'date', order: 'DESC' }}
-        actions={<ListActions />}
-    >
-        <DatagridConfigurable
-            rowClick="expand"
-            expand={<VendorsShow />}
-            sx={{
-                '& .column-customer_id': {
-                    display: { xs: 'none', md: 'table-cell' },
-                },
-            }}
+const VendorList = () => {
+    const isXsmall = useMediaQuery<Theme>(theme =>
+        theme.breakpoints.down('sm')
+    );
+    const isSmall = useMediaQuery<Theme>(theme => theme.breakpoints.down('md'));
+    return (
+        <List
+            
+            sort={{ field: 'last_name', order: 'DESC' }}
+            perPage={25}
+            
+            actions={<VendorListActions />}
         >
-            <TextField source="id" />
-            <DateField source="date" />
-        </DatagridConfigurable>
-    </List>
-);
+            {isXsmall ? (
+                <MobileGrid />
+            ) : (
+                <DatagridConfigurable
+                    rowClick="edit"
+                    sx={{
+                        '& .column-groups': {
+                            md: { display: 'none' },
+                            lg: { display: 'table-cell' },
+                        },
+                    }}
+                >
+                    
+                    
+                    <TextField source="company"  />
+                    <TextField source="email" />
+                    <TextField source="telephone" />
+                </DatagridConfigurable>
+            )}
+        </List>
+    );
+};
 
-export default VendorsList;
+export default VendorList;

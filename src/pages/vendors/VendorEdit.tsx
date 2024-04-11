@@ -1,9 +1,9 @@
 import {
-    Create,
     SimpleForm,
     TextInput,
     useTranslate,
     email,
+    Edit,
 } from 'react-admin';
 import { Box, Typography } from '@mui/material';
 
@@ -32,8 +32,8 @@ export const validateForm = (
     return errors;
 };
 
-const VisitorCreate = () => (
-    <Create>
+const VendorEdit = () => (
+    <Edit>
         <SimpleForm
             sx={{ maxWidth: 500 }}
             validate={validateForm}
@@ -75,7 +75,7 @@ const VisitorCreate = () => (
             </Box>
 
         </SimpleForm>
-    </Create>
+    </Edit>
 );
 
 const SectionTitle = ({ label }: { label: string }) => {
@@ -90,4 +90,4 @@ const SectionTitle = ({ label }: { label: string }) => {
 
 const Separator = () => <Box pt="1em" />;
 
-export default VisitorCreate;
+export default VendorEdit;

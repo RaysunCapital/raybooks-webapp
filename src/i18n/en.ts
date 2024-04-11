@@ -138,6 +138,7 @@ const customEnglishMessages: TranslationMessages = {
             name: 'Invoice |||| Invoices',
             action: {
                 create: 'New Invoice',
+                edit: 'Edit Invoice',
             },
             fields: {
                 date: 'Invoice date',
@@ -156,6 +157,7 @@ const customEnglishMessages: TranslationMessages = {
             name: 'Expense |||| Expenses',
             action: {
                 create: 'New Expense',
+                edit: 'Edit Expense',
             },
             fields: {
                 date: 'Expense date',
@@ -171,6 +173,7 @@ const customEnglishMessages: TranslationMessages = {
             name: 'Estimate |||| Estimates',
             action: {
                 create: 'New Estimate',
+                edit: 'Edit Estimate',
             },
             fields: {
                 date: 'Estimate date',
@@ -185,7 +188,8 @@ const customEnglishMessages: TranslationMessages = {
         products: {
             name: 'Product |||| Products',
             actions: {
-                create: 'New Product'
+                create: 'New Product',
+                edit: 'Edit Product'
             },
             fields: {
                 category_id: 'Category',
@@ -243,6 +247,7 @@ const customEnglishMessages: TranslationMessages = {
                 basket: {
                     delivery: 'Delivery',
                     reference: 'Reference',
+                    name: 'Name',
                     quantity: 'Quantity',
                     sum: 'Sum',
                     tax_rate: 'Tax Rate',

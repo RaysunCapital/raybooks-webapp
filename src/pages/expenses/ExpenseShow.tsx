@@ -1,11 +1,19 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import { ReferenceField, TextField, useRecordContext } from 'react-admin';
+import { ReferenceField, useRecordContext, useTranslate } from 'react-admin';
 
-import { Expense } from '../types';
+import { Vendor, Expense } from '../types';
+import Basket from './Basket';
+import Totals from './Totals';
+
+const Spacer = () => <Box mb={1}>&nbsp;</Box>;
 
 const ExpenseShow = () => {
+
+    const translate = useTranslate();
     const record = useRecordContext<Expense>();
     if (!record) return null;
+
+    
     return (
         <Card sx={{ width: 600, margin: 'auto' }}>
             <CardContent>
@@ -17,72 +25,61 @@ const ExpenseShow = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="h6" gutterBottom align="right">
-                            Expense {record.id}
+                            Expense #{record.id}
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12} container alignContent="flex-end">
                         <ReferenceField
-                            reference="customers"
-                            source="customer_id"
+                            reference="vendors"
+                            source="vendor_id"
                             link={false}
                         >
-                            <ExpenseField />
+                            <VendorField />
                         </ReferenceField>
                     </Grid>
                 </Grid>
                 <Box height={20}>&nbsp;</Box>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" gutterBottom align="center">
+                    <Grid item xs={12}>
+                        <Typography variant="h6" gutterBottom align="left">
                             Date{' '}
                         </Typography>
-                        <Typography gutterBottom align="center">
+                        <Typography gutterBottom align="left">
                             {new Date(record.date).toLocaleDateString()}
                         </Typography>
                     </Grid>
-
-                    <Grid item xs={5}>
-                        <Typography variant="h6" gutterBottom align="center">
-                            Order
-                        </Typography>
-                        <ReferenceField
-                            reference="commands"
-                            source="command_id"
-                            link={false}
-                        >
-                            <TextField
-                                source="reference"
-                                align="center"
-                                component="p"
-                                gutterBottom
-                            />
-                        </ReferenceField>
-                    </Grid>
                 </Grid>
-                <Box margin="10px 0">
-                    <ReferenceField
-                        reference="commands"
-                        source="command_id"
-                        link={false}
-                    >
-                    </ReferenceField>
-                </Box>
+                <Box height={20}>&nbsp;</Box>
+                <Typography variant="h6" gutterBottom>
+                            {translate('resources.commands.section.items')}
+                        </Typography>
+                        <div>
+                            <Basket />
+                        </div>
+                        <Spacer />
+
+                        <Typography variant="h6" gutterBottom>
+                            {translate('resources.commands.section.total')}
+                        </Typography>
+                        <div>
+                            <Totals />
+                        </div>
             </CardContent>
         </Card>
     );
 };
 
-const ExpenseField = () => {
-    const record = useRecordContext<Expense>();
+const VendorField = () => {
+    const record = useRecordContext<Vendor>();
     return record ? (
         <Typography>
-            {record.first_name} {record.last_name}
+            {record.company}
             <br />
             {record.address}
             <br />
-            {record.city}, {record.zipcode}
+            {record.city}
         </Typography>
     ) : null;
 };

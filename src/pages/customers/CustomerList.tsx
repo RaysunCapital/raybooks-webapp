@@ -1,12 +1,8 @@
-import * as React from 'react';
 import {
-    BooleanField,
     CreateButton,
     DatagridConfigurable,
-    DateField,
     ExportButton,
     List,
-    NumberField,
     SelectColumnsButton,
     TextField,
     TopToolbar,
@@ -14,7 +10,7 @@ import {
 import { useMediaQuery, Theme } from '@mui/material';
 import MobileGrid from './MobileGrid';
 
-const VisitorListActions = () => (
+const CustomerListActions = () => (
     <TopToolbar>
         <CreateButton />
         <SelectColumnsButton />
@@ -22,7 +18,7 @@ const VisitorListActions = () => (
     </TopToolbar>
 );
 
-const VisitorList = () => {
+const CustomerList = () => {
     const isXsmall = useMediaQuery<Theme>(theme =>
         theme.breakpoints.down('sm')
     );
@@ -33,7 +29,7 @@ const VisitorList = () => {
             sort={{ field: 'last_name', order: 'DESC' }}
             perPage={25}
             
-            actions={<VisitorListActions />}
+            actions={<CustomerListActions />}
         >
             {isXsmall ? (
                 <MobileGrid />
@@ -46,18 +42,17 @@ const VisitorList = () => {
                             lg: { display: 'table-cell' },
                         },
                     }}
-                    omit={['birthday']}
                 >
                     
                     
+                    <TextField source="last_name"  />
                     <TextField source="first_name" />
                     <TextField source="email" />
-                    <TextField source="last_name"  />
-                    <DateField source="birthday" />
+                    <TextField source="telephone" />
                 </DatagridConfigurable>
             )}
         </List>
     );
 };
 
-export default VisitorList;
+export default CustomerList;

@@ -10,14 +10,17 @@ import {
     SelectColumnsButton,
     ReferenceInput,
     FilterButton,
+    ReferenceField,
+    NumberField,
 } from 'react-admin';
 
+import AddressField from '../vendors/AddressField';
 import ExpenseShow from './ExpenseShow';
 
 const listFilters = [
-    <DateInput source="date_gte" alwaysOn key={null}/>,
+    <DateInput source="date_gte" alwaysOn key={null} />,
     <DateInput source="date_lte" alwaysOn key={null} />,
-    <ReferenceInput source="customer_id" reference="customers" key={null} />,
+    <ReferenceInput source="vendor_id" reference="vendors" key={null} />,
 ];
 
 const ListActions = () => (
@@ -37,16 +40,33 @@ const ExpenseList = () => (
         actions={<ListActions />}
     >
         <DatagridConfigurable
-            rowClick="expand"
+            rowClick="edit"
             expand={<ExpenseShow />}
             sx={{
-                '& .column-customer_id': {
+                '& .column-vendor_id': {
+                    display: { xs: 'none', md: 'table-cell' },
+                },
+                '& .column-taxes': {
                     display: { xs: 'none', md: 'table-cell' },
                 },
             }}
         >
-            <TextField source="id" />
+            <TextField source="id" label="Expense Number"/>
             <DateField source="date" />
+            <ReferenceField source="vendor_id" reference="vendors">
+            <TextField source="company"/>
+            </ReferenceField>
+            <ReferenceField
+                source="vendor_id"
+                reference="vendors"
+                link={false}
+                label="resources.expenses.fields.address"
+            >
+                <AddressField />
+            </ReferenceField>
+            <TextField source='status' />
+            <NumberField source="taxes" />
+            <NumberField source="expense_total" label="Total"/>
         </DatagridConfigurable>
     </List>
 );

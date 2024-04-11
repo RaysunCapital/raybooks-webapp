@@ -1,4 +1,5 @@
 import {
+    Create,
     DateInput,
     SimpleForm,
     useTranslate,
@@ -7,6 +8,7 @@ import {
     ArrayInput,
     SimpleFormIterator,
     NumberInput,
+    SelectInput,
     FormDataConsumer,
     Edit,
 } from 'react-admin';
@@ -59,8 +61,8 @@ const ProductPriceInput = () => {
                                     }}
                                     source={getSource('rate')}
                                     label="Price"
-                                // defaultValue={productPrice}
-                                // disabled
+                                    // defaultValue={productPrice}
+                                    // disabled
                                 />
                                 <NumberInput
                                     source="total"
@@ -70,7 +72,7 @@ const ProductPriceInput = () => {
                                             <InputAdornment position="start">$</InputAdornment>
                                         ),
                                     }}
-                                // defaultValue={scopedFormData.quantity * scopedFormData.rate}
+                                    // defaultValue={scopedFormData.quantity * scopedFormData.rate}
                                 />
                             </>
                         )
@@ -82,7 +84,7 @@ const ProductPriceInput = () => {
     );
 };
 
-const EstimateEdit = () => (
+const ExpenseEdit = () => (
     <Edit>
         <SimpleForm
             sx={{}}
@@ -91,13 +93,13 @@ const EstimateEdit = () => (
                 date: new Date(),
             }}
         >
-            <SectionTitle label="resources.estimates.action.edit" />
+            <SectionTitle label="resources.expenses.action.edit" />
 
             <div style={{ display: 'flex' }}>
                 <DateInput source="date" sx={{ marginRight: '30px' }} />
 
-                <ReferenceInput label="Customer" source="customer_id" reference="customers">
-                    <AutocompleteInput label="Customer" optionText="last_name" />
+                <ReferenceInput label="Vendor" source="vendor_id" reference="vendors">
+                    <AutocompleteInput label="Vendor" optionText="company" />
                 </ReferenceInput>
 
             </div>
@@ -112,40 +114,47 @@ const EstimateEdit = () => (
                         <InputAdornment position="start">%</InputAdornment>
                     ),
                 }}
+                />
+            <NumberInput
+            source="taxes"
+            sx={{ marginRight: '30px' }}
+            // disabled={true}
+            min={0}
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                ),
+            }}
             />
             <NumberInput
-                source="taxes"
-                sx={{ marginRight: '30px' }}
-                // disabled={true}
-                min={0}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">$</InputAdornment>
-                    ),
-                }}
-            />
-            <NumberInput
-                source="estimate_total"
-                // disabled={true}
-                min={0}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">$</InputAdornment>
-                    ),
-                }}
+            source="expense_total"
+            // disabled={true}
+            min={0}
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                ),
+            }}
             />
 
             <Grid container>
                 <Grid item xs={12} sm={12} md={6}>
-                    <div>Valid for</div>
-                    <NumberInput
-                        source="validity"
-                        min={0}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="start">days</InputAdornment>
-                            ),
-                        }}
+                    <SelectInput
+                        source="status"
+                        choices={[
+                            {
+                                id: 'unpaid',
+                                name: 'unpaid',
+                            },
+                            {
+                                id: 'paid',
+                                name: 'paid',
+                            },
+                            {
+                                id: 'cancelled',
+                                name: 'cancelled',
+                            },
+                        ]}
                     />
                 </Grid>
             </Grid>
@@ -153,4 +162,4 @@ const EstimateEdit = () => (
     </Edit >
 );
 
-export default EstimateEdit;
+export default ExpenseEdit;

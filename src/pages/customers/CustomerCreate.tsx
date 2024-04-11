@@ -37,10 +37,6 @@ const VisitorCreate = () => (
     <Create>
         <SimpleForm
             sx={{ maxWidth: 500 }}
-            // Here for the GQL provider
-            defaultValues={{
-                birthday: new Date(),
-            }}
             validate={validateForm}
         >
             <SectionTitle label="resources.customers.fieldGroups.identity" />
@@ -53,7 +49,7 @@ const VisitorCreate = () => (
                 </Box>
             </Box>
             <TextInput type="email" source="email" isRequired fullWidth />
-            <DateInput source="birthday" />
+            <TextInput source="telephone" />
             <Separator />
             <SectionTitle label="resources.customers.fieldGroups.address" />
             <TextInput

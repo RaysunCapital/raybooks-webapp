@@ -2,7 +2,6 @@ import {
     List,
     DatagridConfigurable,
     TextField,
-    DateField,
     CreateButton,
     DateInput,
     TopToolbar,
@@ -10,7 +9,6 @@ import {
     SelectColumnsButton,
     ReferenceInput,
     FilterButton,
-    NumberField,
 } from 'react-admin';
 
 import ProductShow from './ProductShow';
@@ -38,17 +36,12 @@ const ProductList = () => (
         actions={<ListActions />}
     >
         <DatagridConfigurable
-            rowClick="expand"
+            rowClick="edit"
             expand={<ProductShow />}
-            sx={{
-                '& .column-customer_id': {
-                    display: { xs: 'none', md: 'table-cell' },
-                },
-            }}
+            sx={{}}
         >
             <TextField source="name" />
             <TextField source="description" />
-            <NumberField source="price" />
         </DatagridConfigurable>
     </List>
 );

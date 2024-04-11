@@ -1,125 +1,93 @@
 import {
     DateInput,
-    Edit,
-    NullableBooleanInput,
-    TextInput,
-    PasswordInput,
     SimpleForm,
+    TextInput,
     useTranslate,
+    email,
+    Edit,
 } from 'react-admin';
-import { Grid, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-import Aside from './Aside';
-import FullNameField from './FullNameField';
-import SegmentsInput from './SegmentInput';
-import { validateForm } from './CustomerCreate';
+export const validateForm = (
+    values: Record<string, any>
+): Record<string, any> => {
+    const errors = {} as any;
+    if (!values.first_name) {
+        errors.first_name = 'ra.validation.required';
+    }
+    if (!values.last_name) {
+        errors.last_name = 'ra.validation.required';
+    }
+    if (!values.email) {
+        errors.email = 'ra.validation.required';
+    } else {
+        const error = email()(values.email);
+        if (error) {
+            errors.email = error;
+        }
+    }
+    if (values.password && values.password !== values.confirm_password) {
+        errors.confirm_password =
+            'resources.customers.errors.password_mismatch';
+    }
+    return errors;
+};
 
-const CustomerEdit = () => {
+const CustomerEdit = () => (
+    <Edit>
+        <SimpleForm
+            sx={{ maxWidth: 500 }}
+            validate={validateForm}
+        >
+            <SectionTitle label="resources.customers.fieldGroups.identity" />
+            <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+                <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
+                    <TextInput source="first_name" isRequired fullWidth />
+                </Box>
+                <Box flex={1} ml={{ xs: 0, sm: '0.5em' }}>
+                    <TextInput source="last_name" isRequired fullWidth />
+                </Box>
+            </Box>
+            <TextInput type="email" source="email" isRequired fullWidth />
+            <TextInput source="telephone" />
+            <Separator />
+            <SectionTitle label="resources.customers.fieldGroups.address" />
+            <TextInput
+                source="address"
+                multiline
+                fullWidth
+                helperText={false}
+            />
+            <Box display={{ xs: 'block', sm: 'flex' }}>
+                <Box flex={2} mr={{ xs: 0, sm: '0.5em' }}>
+                    <TextInput source="city" fullWidth helperText={false} />
+                </Box>
+                <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
+                    <TextInput
+                        source="stateAbbr"
+                        fullWidth
+                        helperText={false}
+                    />
+                </Box>
+                <Box flex={2}>
+                    <TextInput source="zipcode" fullWidth helperText={false} />
+                </Box>
+            </Box>
+
+        </SimpleForm>
+    </Edit>
+);
+
+const SectionTitle = ({ label }: { label: string }) => {
     const translate = useTranslate();
+
     return (
-        <Edit title={<CustomerTitle />} aside={<Aside />}>
-            <SimpleForm validate={validateForm}>
-                <div>
-                    <Grid container width={{ xs: '100%', xl: 800 }} spacing={2}>
-                        <Grid item xs={12} md={8}>
-                            <Typography variant="h6" gutterBottom>
-                                {translate(
-                                    'resources.customers.fieldGroups.identity'
-                                )}
-                            </Typography>
-                            <Box display={{ xs: 'block', sm: 'flex' }}>
-                                <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
-                                    <TextInput
-                                        source="first_name"
-                                        isRequired
-                                        fullWidth
-                                    />
-                                </Box>
-                                <Box flex={1} ml={{ xs: 0, sm: '0.5em' }}>
-                                    <TextInput
-                                        source="last_name"
-                                        isRequired
-                                        fullWidth
-                                    />
-                                </Box>
-                            </Box>
-                            <TextInput
-                                type="email"
-                                source="email"
-                                isRequired
-                                fullWidth
-                            />
-                            <Box display={{ xs: 'block', sm: 'flex' }}>
-                                <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
-                                    <DateInput
-                                        source="birthday"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                                <Box flex={2} ml={{ xs: 0, sm: '0.5em' }} />
-                            </Box>
-
-                            <Box mt="1em" />
-
-                            <Typography variant="h6" gutterBottom>
-                                {translate(
-                                    'resources.customers.fieldGroups.address'
-                                )}
-                            </Typography>
-                            <TextInput
-                                source="address"
-                                multiline
-                                fullWidth
-                                helperText={false}
-                            />
-                            <Box display={{ xs: 'block', sm: 'flex' }}>
-                                <Box flex={2} mr={{ xs: 0, sm: '0.5em' }}>
-                                    <TextInput
-                                        source="city"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                                <Box flex={1} mr={{ xs: 0, sm: '0.5em' }}>
-                                    <TextInput
-                                        source="stateAbbr"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                                <Box flex={2}>
-                                    <TextInput
-                                        source="zipcode"
-                                        fullWidth
-                                        helperText={false}
-                                    />
-                                </Box>
-                            </Box>
-
-                            <Box mt="1em" />
-
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                            <Typography variant="h6" gutterBottom>
-                                {translate(
-                                    'resources.customers.fieldGroups.stats'
-                                )}
-                            </Typography>
-
-                            <SegmentsInput fullWidth />
-                            <NullableBooleanInput
-                                fullWidth
-                                source="has_newsletter"
-                            />
-                        </Grid>
-                    </Grid>
-                </div>
-            </SimpleForm>
-        </Edit>
+        <Typography variant="h6" gutterBottom>
+            {translate(label as string)}
+        </Typography>
     );
 };
 
-const CustomerTitle = () => <FullNameField size="32" sx={{ margin: '5px 0' }} />;
+const Separator = () => <Box pt="1em" />;
 
 export default CustomerEdit;

@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import { ReferenceField, TextField, useRecordContext, useTranslate } from 'react-admin';
+import { ReferenceField, useRecordContext, useTranslate } from 'react-admin';
 
 import { Customer, Invoice } from '../types';
 import Basket from './Basket';
@@ -42,33 +42,16 @@ const InvoiceShow = () => {
                 </Grid>
                 <Box height={20}>&nbsp;</Box>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" gutterBottom align="center">
+                    <Grid item xs={12}>
+                        <Typography variant="h6" gutterBottom align="left">
                             Date{' '}
                         </Typography>
-                        <Typography gutterBottom align="center">
+                        <Typography gutterBottom align="left">
                             {new Date(record.date).toLocaleDateString()}
                         </Typography>
                     </Grid>
-
-                    <Grid item xs={5}>
-                        <Typography variant="h6" gutterBottom align="center">
-                            Order
-                        </Typography>
-                        <ReferenceField
-                            reference="commands"
-                            source="command_id"
-                            link={false}
-                        >
-                            <TextField
-                                source="reference"
-                                align="center"
-                                component="p"
-                                gutterBottom
-                            />
-                        </ReferenceField>
-                    </Grid>
                 </Grid>
+                <Box height={20}>&nbsp;</Box>
                 <Typography variant="h6" gutterBottom>
                             {translate('resources.commands.section.items')}
                         </Typography>
@@ -96,7 +79,7 @@ const CustomerField = () => {
             <br />
             {record.address}
             <br />
-            {record.city}, {record.zipcode}
+            {record.city}
         </Typography>
     ) : null;
 };
