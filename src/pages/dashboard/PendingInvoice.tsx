@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslate, useReference } from 'react-admin';
-
 import { Customer, Invoice } from '../types';
 
 interface Props {
@@ -39,8 +38,8 @@ export const PendingInvoice = (props: Props) => {
             <ListItemText
                 primary={new Date(invoice.date).toLocaleString('en-GB')}
                 secondary={translate('books.dashboard.order.items', {
-                    smart_count: invoice.products.length,
-                    nb_items: invoice.products.length,
+                    smart_count: invoice.products?.length,
+                    nb_items: invoice.products?.length,
                     customer_name: customer
                         ? `${customer.first_name} ${customer.last_name}`
                         : '',

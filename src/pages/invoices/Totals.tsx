@@ -16,7 +16,7 @@ const Totals = () => {
                         {translate('resources.commands.fields.basket.taxes')}
                     </TableCell>
                     <TableCellRight>
-                        {record?.taxes.toLocaleString(undefined, {
+                        {record?.taxes?.toLocaleString(undefined, {
                             style: 'currency',
                             currency: 'USD',
                         })}
@@ -27,7 +27,7 @@ const Totals = () => {
                         {translate('resources.commands.fields.basket.total')}
                     </TableCell>
                     <TableCellRight sx={{ fontWeight: 'bold' }}>
-                        {record?.invoice_total.toLocaleString(undefined, {
+                        {record?.invoice_total?.toLocaleString(undefined, {
                             style: 'currency',
                             currency: 'USD',
                         })}
